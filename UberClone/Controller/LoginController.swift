@@ -67,25 +67,13 @@ class LoginController: UIViewController {
 	}()
 	
 	private let emailTextField: UITextField = {
-		let tf = UITextField()
-		tf.borderStyle = .none
-		tf.font = UIFont.systemFont(ofSize: 16)
-		tf.textColor = .white
-		tf.keyboardAppearance = .dark
-		tf.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
-		return tf
+		return UITextField().textField(withPlaceholder: "Email", inSecureTextEntry: false)
 	}()
 	
 	private let passwordTextField: UITextField = {
-		let tf = UITextField()
-		tf.borderStyle = .none
-		tf.font = UIFont.systemFont(ofSize: 16)
-		tf.textColor = .white
-		tf.keyboardAppearance = .dark
-		tf.isSecureTextEntry = true
-		tf.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
-		return tf
+		return UITextField().textField(withPlaceholder: "Password", inSecureTextEntry: true)
 	}()
+	
 	
 	//MARK: - LifeCycle
 
