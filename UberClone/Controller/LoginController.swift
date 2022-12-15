@@ -41,7 +41,7 @@ class LoginController: UIViewController {
 		return button
 	}()
 
-	let dontHaveAccountButton: UIButton = {
+	private let dontHaveAccountButton: UIButton = {
 		let button = UIButton(type: .system)
 		let attributedTitle = NSMutableAttributedString(string: "Dont' have an account? ", attributes: [
 			NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
