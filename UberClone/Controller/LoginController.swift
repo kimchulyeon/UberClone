@@ -71,7 +71,6 @@ class LoginController: UIViewController {
 	/// Sign Up 컨트롤러를 생성해야하고
 	/// 네비게이션 컨트롤러를 사용하여 이동할 수 있게 해야한다 // SceneDelegate.swift에서 rootViewController를 네비게이션으로 설정
 	@objc func handleShowSignup() {
-		print("Go to Sign Up Page")
 		// 세그웨이
 		let controller = SignUpController()
 		navigationController?.pushViewController(controller, animated: true)
