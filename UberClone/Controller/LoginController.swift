@@ -30,6 +30,16 @@ class LoginController: UIViewController {
 		return UITextField().textField(withPlaceholder: "Password", inSecureTextEntry: true)
 	}()
 	
+	private let loginButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.setTitle("Log In", for: .normal)
+		button.setTitleColor(UIColor(white: 1, alpha: 0.5), for: .normal)
+		button.backgroundColor = .blue
+		button.layer.cornerRadius = 5
+		button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		return button
+	}()
+	
 	
 	//MARK: - LifeCycle
 
@@ -42,16 +52,10 @@ class LoginController: UIViewController {
 		titleLabel.anchor(top: self.view.safeAreaLayoutGuide.topAnchor)
 		titleLabel.centerX(inView: self.view)
 		
-//		self.view.addSubview(emailContainerView)
-//		emailContainerView.anchor(top: titleLabel.bottomAnchor, left: self.view.leadingAnchor, right: self.view.trailingAnchor, paddingTop: 40, paddingLeft: 16, paddingRight: 16, height: 50 )
-//
-//		self.view.addSubview(passwordContainerView)
-//		passwordContainerView.anchor(top: emailContainerView.bottomAnchor, left: self.view.leadingAnchor, right: self.view.trailingAnchor, paddingTop: 16, paddingLeft: 16, paddingRight: 16, height: 50 )
-		
-		let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView])
+		let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView, loginButton])
 		stack.axis = .vertical
 		stack.distribution = .fillEqually
-		stack.spacing = 16
+		stack.spacing = 24
 		
 		self.view.addSubview(stack)
 		stack.anchor(top: titleLabel.bottomAnchor, left: self.view.leadingAnchor, right: self.view.trailingAnchor, paddingTop: 40, paddingLeft: 16, paddingRight: 16)
