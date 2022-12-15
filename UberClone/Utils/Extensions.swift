@@ -46,5 +46,11 @@ extension UIView {
 		}
 		
 	}
+	
+	
+	/// constraint 반복 작업 함수 centerX
+	func centerX(inView view: UIView) {
+		self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+	}
 }
 

@@ -21,6 +21,7 @@ class LoginController: UIViewController {
 		self.view.addSubview(titleLabel)
 		
 		titleLabel.anchor(top: self.view.safeAreaLayoutGuide.topAnchor)
+		titleLabel.centerX(inView: self.view)
 	}
 	
 	// 상태바 색상
