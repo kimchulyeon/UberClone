@@ -39,6 +39,33 @@ class LoginController: UIViewController {
 		return view
 	}()
 	
+	private lazy var passwordContainerView: UIView = {
+		let view = UIView()
+		
+		// 이메일 컨테이너 뷰 안에만 쓰이는 이미지여서 내부에 선언
+		let imageView = UIImageView()
+		imageView.image = UIImage(systemName: "lock")
+		imageView.alpha = 0.87
+		imageView.tintColor = .lightGray
+		
+		view.addSubview(imageView)
+		imageView.centerY(inView: view) // 여기서 view는 emailContainer다
+		imageView.anchor(left: view.leadingAnchor, paddingLeft: 8, width: 24 ,height: 24)
+		imageView.contentMode = .scaleAspectFill
+		
+		view.addSubview(passwordTextField)
+		passwordTextField.anchor(left: imageView.trailingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingLeft: 8,paddingBottom: 8)
+		passwordTextField.centerY(inView: view)
+		
+		// 구분선
+		let separatorView = UIView()
+		separatorView.backgroundColor = .lightGray
+		view.addSubview(separatorView)
+		separatorView.anchor(left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingLeft: 8, height: 0.75)
+		
+		return view
+	}()
+	
 	private let emailTextField: UITextField = {
 		let tf = UITextField()
 		tf.borderStyle = .none
@@ -49,6 +76,16 @@ class LoginController: UIViewController {
 		return tf
 	}()
 	
+	private let passwordTextField: UITextField = {
+		let tf = UITextField()
+		tf.borderStyle = .none
+		tf.font = UIFont.systemFont(ofSize: 16)
+		tf.textColor = .white
+		tf.keyboardAppearance = .dark
+		tf.isSecureTextEntry = true
+		tf.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+		return tf
+	}()
 	
 	//MARK: - LifeCycle
 
@@ -63,6 +100,9 @@ class LoginController: UIViewController {
 		
 		self.view.addSubview(emailContainerView)
 		emailContainerView.anchor(top: titleLabel.bottomAnchor, left: self.view.leadingAnchor, right: self.view.trailingAnchor, paddingTop: 40, paddingLeft: 16, paddingRight: 16, height: 50 )
+		
+		self.view.addSubview(passwordContainerView)
+		passwordContainerView.anchor(top: emailContainerView.bottomAnchor, left: self.view.leadingAnchor, right: self.view.trailingAnchor, paddingTop: 16, paddingLeft: 16, paddingRight: 16, height: 50 )
 	}
 	
 	// 상태바 색상
