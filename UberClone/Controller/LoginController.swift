@@ -51,6 +51,8 @@ class LoginController: UIViewController {
 			NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
 			NSAttributedString.Key.foregroundColor: UIColor.mainBlueTint
 		]))
+		
+		button.addTarget(self, action: #selector(handleShowSignup), for: .touchUpInside)
 		button.setAttributedTitle(attributedTitle, for: .normal)
 		return button
 	}()
@@ -84,4 +86,15 @@ class LoginController: UIViewController {
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return .lightContent
 	}
+	
+	//MARK: - Selectors
+	/// Sign Up 컨트롤러를 생성해야하고
+	/// 네비게이션 컨트롤러를 사용하여 이동할 수 있게 해야한다 // SceneDelegate.swift에서 rootViewController를 네비게이션으로 설정
+	@objc func handleShowSignup() {
+		print("Go to Sign Up Page")
+		// 세그웨이
+		let controller = SignUpController()
+		navigationController?.pushViewController(controller, animated: true)
+	}
+
 }
