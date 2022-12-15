@@ -13,57 +13,11 @@ class LoginController: UIViewController {
 	
 	// lazy var로 해줘야 밖에 View에 접근 가능하다.
 	private lazy var emailContainerView: UIView = {
-		let view = UIView()
-		
-		// 이메일 컨테이너 뷰 안에만 쓰이는 이미지여서 내부에 선언
-		let imageView = UIImageView()
-		imageView.image = UIImage(systemName: "envelope")
-		imageView.alpha = 0.87
-		imageView.tintColor = .lightGray
-		
-		view.addSubview(imageView)
-		imageView.centerY(inView: view) // 여기서 view는 emailContainer다
-		imageView.anchor(left: view.leadingAnchor, paddingLeft: 8, width: 24 ,height: 24)
-		imageView.contentMode = .scaleAspectFill
-		
-		view.addSubview(emailTextField)
-		emailTextField.anchor(left: imageView.trailingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingLeft: 8,paddingBottom: 8)
-		emailTextField.centerY(inView: view)
-		
-		// 구분선
-		let separatorView = UIView()
-		separatorView.backgroundColor = .lightGray
-		view.addSubview(separatorView)
-		separatorView.anchor(left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingLeft: 8, height: 0.75)
-		
-		return view
+		return UIView().inputContainerView(img: UIImage(systemName: "envelope")!, txtField: emailTextField)
 	}()
 	
 	private lazy var passwordContainerView: UIView = {
-		let view = UIView()
-		
-		// 이메일 컨테이너 뷰 안에만 쓰이는 이미지여서 내부에 선언
-		let imageView = UIImageView()
-		imageView.image = UIImage(systemName: "lock")
-		imageView.alpha = 0.87
-		imageView.tintColor = .lightGray
-		
-		view.addSubview(imageView)
-		imageView.centerY(inView: view) // 여기서 view는 emailContainer다
-		imageView.anchor(left: view.leadingAnchor, paddingLeft: 8, width: 24 ,height: 24)
-		imageView.contentMode = .scaleAspectFill
-		
-		view.addSubview(passwordTextField)
-		passwordTextField.anchor(left: imageView.trailingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingLeft: 8,paddingBottom: 8)
-		passwordTextField.centerY(inView: view)
-		
-		// 구분선
-		let separatorView = UIView()
-		separatorView.backgroundColor = .lightGray
-		view.addSubview(separatorView)
-		separatorView.anchor(left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingLeft: 8, height: 0.75)
-		
-		return view
+		return UIView().inputContainerView(img: UIImage(systemName: "lock")!, txtField: passwordTextField)
 	}()
 	
 	private let emailTextField: UITextField = {

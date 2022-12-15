@@ -7,6 +7,7 @@ import UIKit
  */
 extension UIView {
 
+	//MARK: - Constraint 함수
 	/// constraint 반복 작업 함수
 	func anchor(top: NSLayoutYAxisAnchor? = nil,
 	            left: NSLayoutXAxisAnchor? = nil,
@@ -46,16 +47,44 @@ extension UIView {
 		}
 		
 	}
-	
-	
 	/// constraint 반복 작업 함수 centerX
 	func centerX(inView view: UIView) {
 		self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 	}
-	
 	/// constraint 반복 작업 함수 centerY
 	func centerY(inView view: UIView) {
 		self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+	}
+	
+	
+	//MARK: - Container 생성 함수
+	/// email, password Container 생성 함수
+	func inputContainerView(img: UIImage, txtField: UITextField) -> UIView {
+		let view = UIView()
+		
+		// 이메일 컨테이너 뷰 안에만 쓰이는 이미지여서 내부에 선언
+		let imageView = UIImageView()
+		imageView.image = img
+		imageView.alpha = 0.87
+		imageView.tintColor = .lightGray
+		
+		view.addSubview(imageView)
+		imageView.centerY(inView: view) // 여기서 view는 emailContainer다
+		imageView.anchor(left: view.leadingAnchor, paddingLeft: 8, width: 24 ,height: 24)
+		imageView.contentMode = .scaleAspectFill
+		
+		view.addSubview(txtField)
+		txtField.anchor(left: imageView.trailingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingLeft: 8,paddingBottom: 8)
+		txtField.centerY(inView: view)
+		
+		// 구분선
+		let separatorView = UIView()
+		separatorView.backgroundColor = .lightGray
+		view.addSubview(separatorView)
+		separatorView.anchor(left: view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingLeft: 8, height: 0.75)
+		
+		
+		return view
 	}
 }
 
