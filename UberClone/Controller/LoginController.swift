@@ -63,6 +63,23 @@ class LoginController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		configureUI()
+	}
+
+	
+	//MARK: - Selectors
+	/// Sign Up 컨트롤러를 생성해야하고
+	/// 네비게이션 컨트롤러를 사용하여 이동할 수 있게 해야한다 // SceneDelegate.swift에서 rootViewController를 네비게이션으로 설정
+	@objc func handleShowSignup() {
+		print("Go to Sign Up Page")
+		// 세그웨이
+		let controller = SignUpController()
+		navigationController?.pushViewController(controller, animated: true)
+	}
+
+	//MARK: - Helper Functions
+	func configureUI() {
+		configureNavigationBar()
 		self.view.backgroundColor = .backgroundColor
 
 		self.view.addSubview(titleLabel)
@@ -81,20 +98,11 @@ class LoginController: UIViewController {
 		dontHaveAccountButton.centerX(inView: self.view)
 		dontHaveAccountButton.anchor(bottom: self.view.bottomAnchor, paddingBottom: 25, height: 32)
 	}
-
-	// 상태바 색상
-	override var preferredStatusBarStyle: UIStatusBarStyle {
-		return .lightContent
-	}
 	
-	//MARK: - Selectors
-	/// Sign Up 컨트롤러를 생성해야하고
-	/// 네비게이션 컨트롤러를 사용하여 이동할 수 있게 해야한다 // SceneDelegate.swift에서 rootViewController를 네비게이션으로 설정
-	@objc func handleShowSignup() {
-		print("Go to Sign Up Page")
-		// 세그웨이
-		let controller = SignUpController()
-		navigationController?.pushViewController(controller, animated: true)
+	/// navigationbar configuration
+	/// preferredStatusBarStyle가 필요 없어짐
+	func configureNavigationBar() {
+		navigationController?.navigationBar.isHidden = true
+		navigationController?.navigationBar.barStyle = .black
 	}
-
 }
