@@ -52,5 +52,10 @@ extension UIView {
 	func centerX(inView view: UIView) {
 		self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 	}
+	
+	/// constraint 반복 작업 함수 centerY
+	func centerY(inView view: UIView) {
+		self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+	}
 }
 
