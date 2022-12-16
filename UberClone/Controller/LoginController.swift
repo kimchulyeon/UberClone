@@ -86,8 +86,21 @@ class LoginController: UIViewController {
 				return
 			}
 			
-			print("Successfully logged user in")
-			self.dismiss(animated: true)
+//			print("Successfully logged user in")
+			
+//			let keyWindows = UIApplication.shared.windows.first { $0.isKeyWindow }
+//			guard let controller = keyWindows?.rootViewController as? HomeController else { return }
+//			controller.configureUI()
+//			self.dismiss(animated: true)
+			
+//			guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController else { return }
+//			controller.configureUI()
+//			self.dismiss(animated: true)
+			
+			let keyWindow = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
+			.map({$0 as? UIWindowScene}).compactMap({$0}).first?.windows.filter({$0.isKeyWindow}).first
+			if let homeController = keyWindow?.rootViewController as? HomeController { homeController.configureUI()}
+			self.dismiss(animated: true, completion: nil)
 		}
 	}
 
