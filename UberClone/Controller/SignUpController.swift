@@ -9,14 +9,14 @@ class SignUpController: UIViewController {
 		label.textColor = UIColor(white: 1, alpha: 0.8)
 		return label
 	}()
-	
+
 	// lazy var로 해줘야 밖에 View에 접근 가능하다.
 	private lazy var emailContainerView: UIView = {
 		let view = UIView().inputContainerView(img: UIImage(systemName: "envelope")!, txtField: emailTextField)
-		view.heightAnchor.constraint(equalToConstant: 80).isActive = true // 스택뷰를 사용하면 그 안의 뷰 하나는 높이값을 가지고 있어야한다.
+		view.heightAnchor.constraint(equalToConstant: 50).isActive = true // 스택뷰를 사용하면 그 안의 뷰 하나는 높이값을 가지고 있어야한다.
 		return view
 	}()
-	
+
 	private lazy var fullnameContainerView: UIView = {
 		return UIView().inputContainerView(img: UIImage(systemName: "person.circle")!, txtField: fullnameTextField)
 	}()
@@ -24,16 +24,18 @@ class SignUpController: UIViewController {
 	private lazy var passwordContainerView: UIView = {
 		return UIView().inputContainerView(img: UIImage(systemName: "lock")!, txtField: passwordTextField)
 	}()
-	
+
 	private lazy var accountTypeContainerView: UIView = {
-		return UIView().inputContainerView(img: UIImage(systemName: "person.2.badge.gearshape.fill")!, segmentedControl: accountTypeSegmentedControl)
+		let view = UIView().inputContainerView(img: UIImage(systemName: "person.crop.circle.badge.questionmark")!, segmentedControl: accountTypeSegmentedControl)
+		view.heightAnchor.constraint(equalToConstant: 80).isActive = true
+		return view
 	}()
-	
+
 
 	private let emailTextField: UITextField = {
 		return UITextField().textField(withPlaceholder: "Email", inSecureTextEntry: false)
 	}()
-	
+
 	private let fullnameTextField: UITextField = {
 		return UITextField().textField(withPlaceholder: "Fullname", inSecureTextEntry: false)
 	}()
@@ -41,8 +43,8 @@ class SignUpController: UIViewController {
 	private let passwordTextField: UITextField = {
 		return UITextField().textField(withPlaceholder: "Password", inSecureTextEntry: true)
 	}()
-	
-	
+
+
 	private let accountTypeSegmentedControl: UISegmentedControl = {
 		let sc = UISegmentedControl(items: ["Rider", "Driver"])
 		sc.backgroundColor = .backgroundColor
@@ -50,15 +52,38 @@ class SignUpController: UIViewController {
 		sc.selectedSegmentIndex = 0
 		return sc
 	}()
-	
+
+	private let signUpButton: AuthButton = {
+		let button = AuthButton(type: .system)
+		button.setTitle("Sign Up", for: .normal)
+		return button
+	}()
+
+	private let alreadyHaveAccountButton: UIButton = {
+		let button = UIButton(type: .system)
+		let attributedTitle = NSMutableAttributedString(string: "Already have an account? ", attributes: [
+			NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+			NSAttributedString.Key.foregroundColor: UIColor.lightGray
+		])
+		attributedTitle.append(NSAttributedString(string: " Log In", attributes: [
+			NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+			NSAttributedString.Key.foregroundColor: UIColor.mainBlueTint
+		]))
+
+		button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
+		button.setAttributedTitle(attributedTitle, for: .normal)
+		return button
+	}()
+
+
 	//MARK: - LifeCycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		configureUI()
 	}
-	
-	
+
+
 	//MARK: - Selectors
 	func configureUI() {
 //		configureNavigationBar()
@@ -68,12 +93,22 @@ class SignUpController: UIViewController {
 		titleLabel.anchor(top: self.view.safeAreaLayoutGuide.topAnchor)
 		titleLabel.centerX(inView: self.view)
 
-		let stack = UIStackView(arrangedSubviews: [emailContainerView, fullnameContainerView, passwordContainerView, accountTypeContainerView])
+		let stack = UIStackView(arrangedSubviews: [emailContainerView, fullnameContainerView, passwordContainerView, accountTypeContainerView, signUpButton])
 		stack.axis = .vertical
 		stack.distribution = .fillProportionally
 		stack.spacing = 20
 
 		self.view.addSubview(stack)
 		stack.anchor(top: titleLabel.bottomAnchor, left: self.view.leadingAnchor, right: self.view.trailingAnchor, paddingTop: 40, paddingLeft: 16, paddingRight: 16)
+
+		self.view.addSubview(alreadyHaveAccountButton)
+		alreadyHaveAccountButton.centerX(inView: self.view)
+		alreadyHaveAccountButton.anchor(bottom: self.view.bottomAnchor, paddingBottom: 25, height: 32)
+	}
+
+	@objc func handleShowLogin() {
+//		let controller = LoginController()
+//		navigationController?.pushViewController(controller, animated: true)
+		navigationController?.popViewController(animated: true) // navigationController는 뷰가 스택으로 쌓인다. 
 	}
 }

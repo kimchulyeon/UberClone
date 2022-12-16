@@ -30,14 +30,9 @@ class LoginController: UIViewController {
 		return UITextField().textField(withPlaceholder: "Password", inSecureTextEntry: true)
 	}()
 
-	private let loginButton: UIButton = {
-		let button = UIButton(type: .system)
+	private let loginButton: AuthButton = {
+		let button = AuthButton(type: .system)
 		button.setTitle("Log In", for: .normal)
-		button.setTitleColor(UIColor(white: 1, alpha: 0.5), for: .normal)
-		button.backgroundColor = .mainBlueTint
-		button.layer.cornerRadius = 5
-		button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-		button.heightAnchor.constraint(equalToConstant: 50).isActive = true
 		return button
 	}()
 
@@ -63,6 +58,7 @@ class LoginController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		configureNavigationBar()
 		configureUI()
 	}
 
@@ -76,9 +72,9 @@ class LoginController: UIViewController {
 		navigationController?.pushViewController(controller, animated: true)
 	}
 
+	
 	//MARK: - Helper Functions
 	func configureUI() {
-		configureNavigationBar()
 		self.view.backgroundColor = .backgroundColor
 
 		self.view.addSubview(titleLabel)

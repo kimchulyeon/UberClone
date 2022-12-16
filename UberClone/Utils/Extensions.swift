@@ -7,7 +7,7 @@ import UIKit
  */
 extension UIView {
 
-	//MARK: - Constraint 함수
+	//MARK: - Constraint 작업 함수
 	/// constraint 반복 작업 함수
 	func anchor(top: NSLayoutYAxisAnchor? = nil,
 	            left: NSLayoutXAxisAnchor? = nil,
@@ -52,8 +52,8 @@ extension UIView {
 		self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 	}
 	/// constraint 반복 작업 함수 centerY
-	func centerY(inView view: UIView) {
-		self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+	func centerY(inView view: UIView, constant: CGFloat = 0) {
+		self.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
 	}
 
 
@@ -67,26 +67,26 @@ extension UIView {
 		imageView.image = img
 		imageView.alpha = 0.87
 		imageView.tintColor = .lightGray
-		
+
 		view.addSubview(imageView)
-		
+
 		if let txtField = txtField {
 			imageView.centerY(inView: view) // 여기서 view는 emailContainer다
 			imageView.anchor(left: view.leadingAnchor, paddingLeft: 8, width: 24, height: 24)
 			imageView.contentMode = .scaleAspectFill
-			
+
 			view.addSubview(txtField)
 			txtField.anchor(left: imageView.trailingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingLeft: 8, paddingBottom: 8)
 			txtField.centerY(inView: view)
 		}
-		
+
 		if let sc = segmentedControl {
 			// 텍스트필드일 때랑 세그멘트일 때랑 이미지뷰가 다른 constraint이기 때문에 분기 처리
-			imageView.anchor(top: view.topAnchor, left: view.leadingAnchor, paddingTop: 8,paddingLeft: 8, width: 24, height: 24)
+			imageView.anchor(top: view.topAnchor, left: view.leadingAnchor, paddingTop: -10, paddingLeft: 8, width: 24, height: 24)
 			imageView.contentMode = .scaleAspectFill
 			view.addSubview(sc)
 			sc.anchor(left: view.leadingAnchor, right: view.trailingAnchor, paddingLeft: 8, paddingRight: 8)
-			sc.centerY(inView: view)
+			sc.centerY(inView: view, constant: 8)
 		}
 
 		// 구분선
