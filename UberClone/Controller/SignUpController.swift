@@ -135,9 +135,12 @@ class SignUpController: UIViewController {
 			
 			Database.database(url: "https://uberclone-2472f-default-rtdb.asia-southeast1.firebasedatabase.app").reference().child("users").child(uid).updateChildValues(values) { error, ref in
 				print("Successfully registered user and saved data...")
-				self.emailTextField.text = ""
-				self.passwordTextField.text = ""
-				self.accountTypeSegmentedControl.selectedSegmentIndex = 0
+//				DispatchQueue.main.async {
+//					let nav = UINavigationController(rootViewController: LoginController())
+//					nav.modalPresentationStyle = .fullScreen
+//					self.present(nav, animated: false)
+//				}
+				self.dismiss(animated: true)
 			}
 		}
 		

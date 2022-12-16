@@ -87,8 +87,7 @@ class LoginController: UIViewController {
 			}
 			
 			print("Successfully logged user in")
-			self.emailTextField.text = ""
-			self.passwordTextField.text = ""
+			self.dismiss(animated: true)
 		}
 	}
 
