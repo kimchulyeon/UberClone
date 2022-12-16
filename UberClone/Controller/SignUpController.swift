@@ -1,4 +1,5 @@
 import UIKit
+import Firebase
 
 class SignUpController: UIViewController {
 	//MARK: - Properties
@@ -33,11 +34,15 @@ class SignUpController: UIViewController {
 
 
 	private let emailTextField: UITextField = {
-		return UITextField().textField(withPlaceholder: "Email", inSecureTextEntry: false)
+		let txtField =  UITextField().textField(withPlaceholder: "Email", inSecureTextEntry: false)
+		txtField.autocapitalizationType = .none
+		return txtField
 	}()
 
 	private let fullnameTextField: UITextField = {
-		return UITextField().textField(withPlaceholder: "Fullname", inSecureTextEntry: false)
+		let txtField =  UITextField().textField(withPlaceholder: "Fullname", inSecureTextEntry: false)
+		txtField.autocapitalizationType = .none
+		return txtField
 	}()
 
 	private let passwordTextField: UITextField = {
@@ -56,6 +61,7 @@ class SignUpController: UIViewController {
 	private let signUpButton: AuthButton = {
 		let button = AuthButton(type: .system)
 		button.setTitle("Sign Up", for: .normal)
+		button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
 		return button
 	}()
 
@@ -110,5 +116,30 @@ class SignUpController: UIViewController {
 //		let controller = LoginController()
 //		navigationController?.pushViewController(controller, animated: true)
 		navigationController?.popViewController(animated: true) // navigationController는 뷰가 스택으로 쌓인다. 
+	}
+	
+	@objc func handleSignUp() {
+		guard let email = emailTextField.text else { return }
+		guard let password = passwordTextField.text else { return }
+		guard let fullname = fullnameTextField.text else { return }
+		let accountType = accountTypeSegmentedControl.selectedSegmentIndex
+		
+		Auth.auth().createUser(withEmail: email, password: password) { result, error in
+			if let error = error {
+				print("fail to register error \(error)")
+				return
+			}
+			
+			guard let uid = result?.user.uid else { return }
+			let values = ["email": email, "fullname": fullname, "accountType": accountType] as [String: Any]
+			
+			Database.database(url: "https://uberclone-2472f-default-rtdb.asia-southeast1.firebasedatabase.app").reference().child("users").child(uid).updateChildValues(values) { error, ref in
+				print("Successfully registered user and saved data...")
+				self.emailTextField.text = ""
+				self.passwordTextField.text = ""
+				self.accountTypeSegmentedControl.selectedSegmentIndex = 0
+			}
+		}
+		
 	}
 }
