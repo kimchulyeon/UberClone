@@ -134,13 +134,18 @@ class SignUpController: UIViewController {
 			let values = ["email": email, "fullname": fullname, "accountType": accountType] as [String: Any]
 			
 			Database.database(url: "https://uberclone-2472f-default-rtdb.asia-southeast1.firebasedatabase.app").reference().child("users").child(uid).updateChildValues(values) { error, ref in
-				print("Successfully registered user and saved data...")
 //				DispatchQueue.main.async {
 //					let nav = UINavigationController(rootViewController: LoginController())
 //					nav.modalPresentationStyle = .fullScreen
 //					self.present(nav, animated: false)
 //				}
-				self.dismiss(animated: true)
+//				self.dismiss(animated: true)
+				
+				let keyWindow = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
+				.map({$0 as? UIWindowScene}).compactMap({$0}).first?.windows.filter({$0.isKeyWindow}).first
+				
+				if let homeController = keyWindow?.rootViewController as? HomeController { homeController.configureUI()}
+				self.dismiss(animated: true, completion: nil)
 			}
 		}
 		

@@ -99,6 +99,7 @@ class LoginController: UIViewController {
 			
 			let keyWindow = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
 			.map({$0 as? UIWindowScene}).compactMap({$0}).first?.windows.filter({$0.isKeyWindow}).first
+			
 			if let homeController = keyWindow?.rootViewController as? HomeController { homeController.configureUI()}
 			self.dismiss(animated: true, completion: nil)
 		}
