@@ -146,6 +146,7 @@ extension HomeController: LocationInputViewDelegate {
 			self.locationInputView.alpha = 0
 			self.tableView.frame.origin.y = self.view.frame.height // 다시 숨기기
 		}) { _ in
+			self.locationInputView.removeFromSuperview()
 			UIView.animate(withDuration: 0.3, animations: {
 				self.locationInputActivateView.alpha = 1
 			})
