@@ -49,11 +49,23 @@ extension UIView {
 	}
 	/// constraint 반복 작업 함수 centerX
 	func centerX(inView view: UIView) {
+		translatesAutoresizingMaskIntoConstraints = false
 		self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 	}
 	/// constraint 반복 작업 함수 centerY
-	func centerY(inView view: UIView, constant: CGFloat = 0) {
+	func centerY(inView view: UIView, leftAnchor: NSLayoutXAxisAnchor? = nil, paddingLeft: CGFloat = 0, constant: CGFloat = 0) {
+		translatesAutoresizingMaskIntoConstraints = false
 		self.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
+
+		if let left = leftAnchor {
+			anchor(left: left, paddingLeft: paddingLeft)
+		}
+	}
+
+	func setDimension(height: CGFloat, width: CGFloat) {
+		self.translatesAutoresizingMaskIntoConstraints = false
+		self.heightAnchor.constraint(equalToConstant: height).isActive = true
+		self.widthAnchor.constraint(equalToConstant: width).isActive = true
 	}
 
 

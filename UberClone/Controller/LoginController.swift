@@ -33,14 +33,14 @@ class LoginController: UIViewController {
 		return UITextField().textField(withPlaceholder: "Password", inSecureTextEntry: true)
 	}()
 
-	private let loginButton: AuthButton = {
+	private lazy var loginButton: AuthButton = {
 		let button = AuthButton(type: .system)
 		button.setTitle("Log In", for: .normal)
 		button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
 		return button
 	}()
 
-	private let dontHaveAccountButton: UIButton = {
+	private lazy var dontHaveAccountButton: UIButton = {
 		let button = UIButton(type: .system)
 		let attributedTitle = NSMutableAttributedString(string: "Dont' have an account? ", attributes: [
 			NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
@@ -61,7 +61,10 @@ class LoginController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
+		emailTextField.delegate = self
+		passwordTextField.delegate = self
+		
 		configureNavigationBar()
 		configureUI()
 	}
@@ -103,6 +106,7 @@ class LoginController: UIViewController {
 			if let homeController = keyWindow?.rootViewController as? HomeController { homeController.configureUI()}
 			self.dismiss(animated: true, completion: nil)
 		}
+		self.view.endEditing(true)
 	}
 
 	
@@ -132,5 +136,18 @@ class LoginController: UIViewController {
 	func configureNavigationBar() {
 		navigationController?.navigationBar.isHidden = true
 		navigationController?.navigationBar.barStyle = .black
+	}
+}
+
+
+extension LoginController: UITextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		if textField == passwordTextField {
+			self.view.endEditing(true)
+			return true
+		} else {
+			passwordTextField.becomeFirstResponder()
+			return false
+		}
 	}
 }

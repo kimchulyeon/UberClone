@@ -16,6 +16,9 @@
 		6E4D862F294B080100240904 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4D862E294B080100240904 /* SignUpController.swift */; };
 		6E4D8631294C238F00240904 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4D8630294C238F00240904 /* AuthButton.swift */; };
 		6E4D8637295141E500240904 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4D8636295141E500240904 /* HomeController.swift */; };
+		6E69F72E2952D7C800BCF3EB /* LocationInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E69F72D2952D7C800BCF3EB /* LocationInputView.swift */; };
+		6E69F7302952F62D00BCF3EB /* LocationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E69F72F2952F62D00BCF3EB /* LocationTableCell.swift */; };
+		6E9A312E2952BB4E005CB0F3 /* LocationInputActivateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A312D2952BB4E005CB0F3 /* LocationInputActivateView.swift */; };
 		6EDF16D52951495F0016C6AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EDF16D42951495F0016C6AF /* GoogleService-Info.plist */; };
 		D45BB7FECF43A55FB650A471 /* Pods_UberClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F58CDC9F05CC726E22C7C818 /* Pods_UberClone.framework */; };
 /* End PBXBuildFile section */
@@ -33,6 +36,9 @@
 		6E4D862E294B080100240904 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignUpController.swift; path = UberClone/Controller/SignUpController.swift; sourceTree = SOURCE_ROOT; };
 		6E4D8630294C238F00240904 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		6E4D8636295141E500240904 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeController.swift; path = UberClone/Controller/HomeController.swift; sourceTree = SOURCE_ROOT; };
+		6E69F72D2952D7C800BCF3EB /* LocationInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputView.swift; sourceTree = "<group>"; };
+		6E69F72F2952F62D00BCF3EB /* LocationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableCell.swift; sourceTree = "<group>"; };
+		6E9A312D2952BB4E005CB0F3 /* LocationInputActivateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputActivateView.swift; sourceTree = "<group>"; };
 		6EDF16D3295147D00016C6AF /* UberClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UberClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EDF16D42951495F0016C6AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F58CDC9F05CC726E22C7C818 /* Pods_UberClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UberClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +113,9 @@
 			isa = PBXGroup;
 			children = (
 				6E4D8630294C238F00240904 /* AuthButton.swift */,
+				6E9A312D2952BB4E005CB0F3 /* LocationInputActivateView.swift */,
+				6E69F72D2952D7C800BCF3EB /* LocationInputView.swift */,
+				6E69F72F2952F62D00BCF3EB /* LocationTableCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -253,10 +262,13 @@
 				6E4D862F294B080100240904 /* SignUpController.swift in Sources */,
 				6E4D8631294C238F00240904 /* AuthButton.swift in Sources */,
 				6E4D8610294AB78000240904 /* AppDelegate.swift in Sources */,
+				6E69F72E2952D7C800BCF3EB /* LocationInputView.swift in Sources */,
 				6E4D8637295141E500240904 /* HomeController.swift in Sources */,
+				6E69F7302952F62D00BCF3EB /* LocationTableCell.swift in Sources */,
 				6E4D862D294ADDC500240904 /* LoginController.swift in Sources */,
 				6E4D8612294AB78000240904 /* SceneDelegate.swift in Sources */,
 				6E4D862C294AC48900240904 /* Extensions.swift in Sources */,
+				6E9A312E2952BB4E005CB0F3 /* LocationInputActivateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
