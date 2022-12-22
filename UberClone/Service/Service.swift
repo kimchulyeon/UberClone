@@ -9,12 +9,16 @@ struct Service {
 	let currentUid = Auth.auth().currentUser?.uid
 
 	//MARK: - 사용자 데이터를 가져오는 함수
-	func fetchUserData(completion: @escaping (String) -> Void) {
+	// Model에 User타입
+	func fetchUserData(completion: @escaping (User) -> Void) {
 		REF_USERS.child(currentUid!).observeSingleEvent(of: .value, with: { (snapshot) in
 			// 📌 타입캐스팅으로 dictionary를 array로 변경
 			guard let snp = snapshot.value as? [String: Any] else { return }
-			guard let fullname = snp["fullname"] else { return }
-			completion(fullname as! String)
+			let user = User(dictionary: snp)
+			completion(user)
+			
+//			guard let fullname = snp["fullname"] else { return }
+//			completion(fullname as! String)
 		})
 	}
 }
