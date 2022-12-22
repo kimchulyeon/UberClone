@@ -15,10 +15,10 @@ class HomeController: UIViewController {
 	private final let LOCATIONINPUTVIEWHEIGHT: CGFloat = 200
 	private let tableView = UITableView()
 	
-	private var fullname: String? {
+	private var user: User? {
 		didSet {
 			print("📌 fetchUserData함수에서 fullname이 할당되었다.")
-			locationInputView.titleLabel.text = fullname
+			locationInputView.user = user
 		}
 	}
 
@@ -40,8 +40,9 @@ class HomeController: UIViewController {
 
 	//MARK: - API
 	func fetchUserData() {
-		Service.shared.fetchUserData(completion: { fullname in
-			self.fullname = fullname
+		Service.shared.fetchUserData(completion: { user in
+			print(user)
+			self.user = user
 		})
 	}
 
