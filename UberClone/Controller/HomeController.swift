@@ -93,6 +93,7 @@ class HomeController: UIViewController {
 	func configureTableView() {
 		tableView.register(LocationTableCell.self, forCellReuseIdentifier: reuseIdentifier)
 		tableView.rowHeight = 60
+		tableView.tableFooterView = UIView()
 		let height = view.frame.height - LOCATIONINPUTVIEWHEIGHT
 		tableView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: height) // 숨겨놓기
 		
@@ -131,6 +132,7 @@ extension HomeController: CLLocationManagerDelegate {
 	}
 }
 
+//MARK: - 위치 인풋 컨테이너 생성 델리게이트
 
 extension HomeController: LocationInputActivateViewDelegate {
 	func presentLocationInputView() {
@@ -139,6 +141,7 @@ extension HomeController: LocationInputActivateViewDelegate {
 	}
 }
 
+//MARK: - 위치 인풋 컨터이너 내부 델리게이트
 
 extension HomeController: LocationInputViewDelegate {
 	func dismissLocationInputView() {
@@ -154,11 +157,21 @@ extension HomeController: LocationInputViewDelegate {
 	}
 }
 
+//MARK: - 테이블뷰 델리게이트
+
 extension HomeController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 10
+		return section == 0 ? 2 : 5
 	}
-
+	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return 2
+	}
+	
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return section == 0 ? "선택한 위치" : "리스트"
+	}
+	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! LocationTableCell
 		return cell
