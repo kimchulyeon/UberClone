@@ -16,9 +16,8 @@ class LocationInputView: UIView {
 		return button
 	}()
 
-	private lazy var titleLabel: UILabel = {
+	let titleLabel: UILabel = {
 		let label = UILabel()
-		label.text = "KIM"
 		label.font = UIFont.systemFont(ofSize: 18)
 		label.textColor = .darkGray
 		return label

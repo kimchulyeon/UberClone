@@ -14,7 +14,13 @@ class HomeController: UIViewController {
 	private let locationInputView = LocationInputView()
 	private final let LOCATIONINPUTVIEWHEIGHT: CGFloat = 200
 	private let tableView = UITableView()
-
+	
+	private var fullname: String? {
+		didSet {
+			print("📌 fetchUserData함수에서 fullname이 할당되었다.")
+			locationInputView.titleLabel.text = fullname
+		}
+	}
 
 	//MARK: - LifeCycle
 	override func viewDidLoad() {
@@ -27,10 +33,18 @@ class HomeController: UIViewController {
 
 		checkUserIsLoggedIn()
 		enableLocationService()
+
+		fetchUserData()
 //		signOut()
 	}
 
 	//MARK: - API
+	func fetchUserData() {
+		Service.shared.fetchUserData(completion: { fullname in
+			self.fullname = fullname
+		})
+	}
+
 	func checkUserIsLoggedIn() {
 		if Auth.auth().currentUser?.uid == nil {
 			DispatchQueue.main.async {
@@ -65,7 +79,7 @@ class HomeController: UIViewController {
 		UIView.animate(withDuration: 1.4) {
 			self.locationInputActivateView.alpha = 1
 		}
-		
+
 		configureTableView()
 	}
 
@@ -96,7 +110,7 @@ class HomeController: UIViewController {
 		tableView.tableFooterView = UIView()
 		let height = view.frame.height - LOCATIONINPUTVIEWHEIGHT
 		tableView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: height) // 숨겨놓기
-		
+
 		view.addSubview(tableView)
 	}
 }
@@ -163,15 +177,15 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return section == 0 ? 2 : 5
 	}
-	
+
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 2
 	}
-	
+
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return section == 0 ? "선택한 위치" : "리스트"
 	}
-	
+
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! LocationTableCell
 		return cell
