@@ -2,6 +2,7 @@ import Firebase
 
 let DB_REF = Database.database().reference()
 let REF_USERS = DB_REF.child("users")
+let REF_DRIVER_LOCATIONS = DB_REF.child("driver-location")
 
 struct Service {
 	// 📌 static을 사용하면 타입에 직접 사용해서 인스턴스를 생성하지 않는다. (불 필요한 인스턴스 생성을 방지)
