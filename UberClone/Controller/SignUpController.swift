@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import GeoFire
 
 class SignUpController: UIViewController {
 	//MARK: - Properties
@@ -34,13 +35,13 @@ class SignUpController: UIViewController {
 
 
 	private let emailTextField: UITextField = {
-		let txtField =  UITextField().textField(withPlaceholder: "Email", inSecureTextEntry: false)
+		let txtField = UITextField().textField(withPlaceholder: "Email", inSecureTextEntry: false)
 		txtField.autocapitalizationType = .none
 		return txtField
 	}()
 
 	private let fullnameTextField: UITextField = {
-		let txtField =  UITextField().textField(withPlaceholder: "Fullname", inSecureTextEntry: false)
+		let txtField = UITextField().textField(withPlaceholder: "Fullname", inSecureTextEntry: false)
 		txtField.autocapitalizationType = .none
 		return txtField
 	}()
@@ -115,39 +116,47 @@ class SignUpController: UIViewController {
 	@objc func handleShowLogin() {
 //		let controller = LoginController()
 //		navigationController?.pushViewController(controller, animated: true)
-		navigationController?.popViewController(animated: true) // navigationController는 뷰가 스택으로 쌓인다. 
+		navigationController?.popViewController(animated: true) // navigationController는 뷰가 스택으로 쌓인다.
 	}
-	
+
 	@objc func handleSignUp() {
 		guard let email = emailTextField.text else { return }
 		guard let password = passwordTextField.text else { return }
 		guard let fullname = fullnameTextField.text else { return }
 		let accountType = accountTypeSegmentedControl.selectedSegmentIndex
-		
+
 		Auth.auth().createUser(withEmail: email, password: password) { result, error in
 			if let error = error {
 				print("fail to register error \(error)")
 				return
 			}
-			
+
 			guard let uid = result?.user.uid else { return }
 			let values = ["email": email, "fullname": fullname, "accountType": accountType] as [String: Any]
-			
-			Database.database(url: "https://uberclone-2472f-default-rtdb.asia-southeast1.firebasedatabase.app").reference().child("users").child(uid).updateChildValues(values) { error, ref in
+
+			if accountType == 1 {
+				// 📌 데이터베이스 레퍼런스는 Service.swift에서 생성
+				var geoFire = GeoFire(firebaseRef: REF_DRIVER_LOCATIONS)
+				geoFire.setLocation(<#T##location: CLLocation##CLLocation#>, forKey: uid, withCompletionBlock: { (error) in
+
+				})
+			}
+
+			REF_USERS.child(uid).updateChildValues(values) { error, ref in
 //				DispatchQueue.main.async {
 //					let nav = UINavigationController(rootViewController: LoginController())
 //					nav.modalPresentationStyle = .fullScreen
 //					self.present(nav, animated: false)
 //				}
 //				self.dismiss(animated: true)
-				
-				let keyWindow = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
-				.map({$0 as? UIWindowScene}).compactMap({$0}).first?.windows.filter({$0.isKeyWindow}).first
-				
-				if let homeController = keyWindow?.rootViewController as? HomeController { homeController.configureUI()}
+
+				let keyWindow = UIApplication.shared.connectedScenes.filter({ $0.activationState == .foregroundActive })
+					.map({ $0 as? UIWindowScene }).compactMap({ $0 }).first?.windows.filter({ $0.isKeyWindow }).first
+
+				if let homeController = keyWindow?.rootViewController as? HomeController { homeController.configureUI() }
 				self.dismiss(animated: true, completion: nil)
 			}
 		}
-		
+
 	}
 }
